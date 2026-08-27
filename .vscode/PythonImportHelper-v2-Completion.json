@@ -1,0 +1,209 @@
+[
+    {
+        "label": "requests",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "requests",
+        "description": "requests",
+        "detail": "requests",
+        "documentation": {}
+    },
+    {
+        "label": "Page",
+        "importPath": "playwright.sync_api",
+        "description": "playwright.sync_api",
+        "isExtraImport": true,
+        "detail": "playwright.sync_api",
+        "documentation": {}
+    },
+    {
+        "label": "expect",
+        "importPath": "playwright.sync_api",
+        "description": "playwright.sync_api",
+        "isExtraImport": true,
+        "detail": "playwright.sync_api",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "status",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTMLResponse",
+        "importPath": "fastapi.responses",
+        "description": "fastapi.responses",
+        "isExtraImport": true,
+        "detail": "fastapi.responses",
+        "documentation": {}
+    },
+    {
+        "label": "CORSMiddleware",
+        "importPath": "fastapi.middleware.cors",
+        "description": "fastapi.middleware.cors",
+        "isExtraImport": true,
+        "detail": "fastapi.middleware.cors",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "test_api_valid_login",
+        "kind": 2,
+        "importPath": "tests.tests_api",
+        "description": "tests.tests_api",
+        "peekOfCode": "def test_api_valid_login():\n    \"\"\"TC_API_01: Valid credentials return 200 OK and authentication token\"\"\"\n    payload = {\n        \"email\": \"admin@qa.com\",\n        \"password\": \"Pass123!\"\n    }\n    response = requests.post(f\"{BASE_URL}/api/login\", json=payload)\n    # Assertions\n    assert response.status_code == 200\n    data = response.json()",
+        "detail": "tests.tests_api",
+        "documentation": {}
+    },
+    {
+        "label": "test_api_invalid_password",
+        "kind": 2,
+        "importPath": "tests.tests_api",
+        "description": "tests.tests_api",
+        "peekOfCode": "def test_api_invalid_password():\n    \"\"\"TC_API_02: Incorrect password returns 401 Unauthorized\"\"\"\n    payload = {\n        \"email\": \"admin@qa.com\",\n        \"password\": \"WrongPassword!\"\n    }\n    response = requests.post(f\"{BASE_URL}/api/login\", json=payload)\n    # Assertions\n    assert response.status_code == 401\n    data = response.json()",
+        "detail": "tests.tests_api",
+        "documentation": {}
+    },
+    {
+        "label": "BASE_URL",
+        "kind": 5,
+        "importPath": "tests.tests_api",
+        "description": "tests.tests_api",
+        "peekOfCode": "BASE_URL = \"http://127.0.0.1:8000\"\ndef test_api_valid_login():\n    \"\"\"TC_API_01: Valid credentials return 200 OK and authentication token\"\"\"\n    payload = {\n        \"email\": \"admin@qa.com\",\n        \"password\": \"Pass123!\"\n    }\n    response = requests.post(f\"{BASE_URL}/api/login\", json=payload)\n    # Assertions\n    assert response.status_code == 200",
+        "detail": "tests.tests_api",
+        "documentation": {}
+    },
+    {
+        "label": "test_ui_successful_login",
+        "kind": 2,
+        "importPath": "tests.tests_ui",
+        "description": "tests.tests_ui",
+        "peekOfCode": "def test_ui_successful_login(page: Page):\n    \"\"\"TC_UI_01: Valid user login redirects to Welcome dashboard\"\"\"\n    page.goto(BASE_URL)\n    # Fill login form\n    page.fill(\"#email\", \"admin@qa.com\")\n    page.fill(\"#password\", \"Pass123!\")\n    page.click(\"#login-btn\")\n    # Assertions on Welcome Screen\n    expect(page.locator(\"#welcome-card\")).to_be_visible()\n    expect(page.locator(\"#welcome-title\")).to_have_text(\"Welcome Back, Admin!\")",
+        "detail": "tests.tests_ui",
+        "documentation": {}
+    },
+    {
+        "label": "test_ui_invalid_login_toast",
+        "kind": 2,
+        "importPath": "tests.tests_ui",
+        "description": "tests.tests_ui",
+        "peekOfCode": "def test_ui_invalid_login_toast(page: Page):\n    \"\"\"TC_UI_02: Invalid credentials trigger red toast message\"\"\"\n    page.goto(BASE_URL)\n    # Fill form with invalid password\n    page.fill(\"#email\", \"admin@qa.com\")\n    page.fill(\"#password\", \"WrongPass\")\n    page.click(\"#login-btn\")\n    # Assertions on Error Toast\n    expect(page.locator(\"#error-toast\")).to_be_visible()\n    expect(page.locator(\"#error-toast\")).to_contain_text(\"Invalid email or password\")",
+        "detail": "tests.tests_ui",
+        "documentation": {}
+    },
+    {
+        "label": "test_ui_logout_flow",
+        "kind": 2,
+        "importPath": "tests.tests_ui",
+        "description": "tests.tests_ui",
+        "peekOfCode": "def test_ui_logout_flow(page: Page):\n    \"\"\"TC_UI_03: Log out button returns user to login form\"\"\"\n    page.goto(BASE_URL)\n    # Complete Login\n    page.fill(\"#email\", \"admin@qa.com\")\n    page.fill(\"#password\", \"Pass123!\")\n    page.click(\"#login-btn\")\n    # Click Logout\n    page.click(\"#logout-btn\")\n    # Assertions",
+        "detail": "tests.tests_ui",
+        "documentation": {}
+    },
+    {
+        "label": "BASE_URL",
+        "kind": 5,
+        "importPath": "tests.tests_ui",
+        "description": "tests.tests_ui",
+        "peekOfCode": "BASE_URL = \"http://127.0.0.1:8000\"\ndef test_ui_successful_login(page: Page):\n    \"\"\"TC_UI_01: Valid user login redirects to Welcome dashboard\"\"\"\n    page.goto(BASE_URL)\n    # Fill login form\n    page.fill(\"#email\", \"admin@qa.com\")\n    page.fill(\"#password\", \"Pass123!\")\n    page.click(\"#login-btn\")\n    # Assertions on Welcome Screen\n    expect(page.locator(\"#welcome-card\")).to_be_visible()",
+        "detail": "tests.tests_ui",
+        "documentation": {}
+    },
+    {
+        "label": "LoginRequest",
+        "kind": 6,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "class LoginRequest(BaseModel):\n    email: str\n    password: str\n@app.post(\"/api/login\")\ndef login(data: LoginRequest):\n    if data.email == MOCK_EMAIL and data.password == MOCK_PASSWORD:\n        return {\n            \"status\": \"success\",\n            \"message\": \"Authentication successful\",\n            \"token\": \"qa-demo-auth-token-998877\"",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "login",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def login(data: LoginRequest):\n    if data.email == MOCK_EMAIL and data.password == MOCK_PASSWORD:\n        return {\n            \"status\": \"success\",\n            \"message\": \"Authentication successful\",\n            \"token\": \"qa-demo-auth-token-998877\"\n        }\n    raise HTTPException(\n        status_code=status.HTTP_401_UNAUTHORIZED,\n        detail=\"Invalid email or password\"",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "serve_ui",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def serve_ui():\n    return \"\"\"\n    <!DOCTYPE html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n        <title>SQA Automation Demo App</title>\n        <script src=\"https://cdn.tailwindcss.com\"></script>\n    </head>",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "MOCK_EMAIL",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "MOCK_EMAIL = os.getenv(\"MOCK_EMAIL\")\nMOCK_PASSWORD = os.getenv(\"MOCK_PASSWORD\")\napp = FastAPI(title=\"Modern SQA Demo App\")\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],\n    allow_credentials=True,\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"],\n)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "MOCK_PASSWORD",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "MOCK_PASSWORD = os.getenv(\"MOCK_PASSWORD\")\napp = FastAPI(title=\"Modern SQA Demo App\")\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],\n    allow_credentials=True,\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"],\n)\nclass LoginRequest(BaseModel):",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app = FastAPI(title=\"Modern SQA Demo App\")\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],\n    allow_credentials=True,\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"],\n)\nclass LoginRequest(BaseModel):\n    email: str",
+        "detail": "main",
+        "documentation": {}
+    }
+]
