@@ -74,8 +74,9 @@ jobs:
 
     - name: Start FastAPI Backend Server
       env:
-        MOCK_EMAIL: admin@qa.com
-        MOCK_PASSWORD: Pass123!
+        MOCK_EMAIL: ${{ secrets.MOCK_EMAIL }}
+        MOCK_PASSWORD: ${{ secrets.MOCK_PASSWORD }}
+        
       run: |
         uvicorn main:app --host 127.0.0.1 --port 8000 &
         sleep 5
