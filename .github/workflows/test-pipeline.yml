@@ -82,7 +82,7 @@ jobs:
 
     - name: Run Pytest Automation Suite (API & UI)
       run: |
-        pytest tests/ --html=report.html --self-contained-html
+        pytest tests/test_api.py tests/test_ui.py --html=report.html --self-contained-html
 
     - name: Upload HTML Test Report Artifact
       if: always()
