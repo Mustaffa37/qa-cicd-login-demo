@@ -1,14 +1,21 @@
+import os
+from dotenv import load_dotenv
 from playwright.sync_api import Page, expect
 
-BASE_URL = "http://127.0.0.1:8000"
+# Load variables from .env file
+load_dotenv()
+
+BASE_URL = os.getenv("BASE_URL")
+USER_EMAIL = os.getenv("TEST_USER_EMAIL")
+USER_PASSWORD = os.getenv("TEST_USER_PASSWORD")
 
 def test_ui_successful_login(page: Page):
     """TC_UI_01: Valid user login redirects to Welcome dashboard"""
     page.goto(BASE_URL)
     
     # Fill login form
-    page.fill("#email", "admin@qa.com")
-    page.fill("#password", "Pass123!")
+    page.fill("#email", USER_EMAIL)
+    page.fill("#password", USER_PASSWORD)
     page.click("#login-btn")
     
     # Assertions on Welcome Screen
@@ -21,7 +28,7 @@ def test_ui_invalid_login_toast(page: Page):
     page.goto(BASE_URL)
     
     # Fill form with invalid password
-    page.fill("#email", "admin@qa.com")
+    page.fill("#email", USER_EMAIL)
     page.fill("#password", "WrongPass")
     page.click("#login-btn")
     
@@ -35,8 +42,8 @@ def test_ui_logout_flow(page: Page):
     page.goto(BASE_URL)
     
     # Complete Login
-    page.fill("#email", "admin@qa.com")
-    page.fill("#password", "Pass123!")
+    page.fill("#email", USER_EMAIL)
+    page.fill("#password", USER_PASSWORD)
     page.click("#login-btn")
     
     # Click Logout

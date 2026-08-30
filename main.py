@@ -1,49 +1,5 @@
-# import os
-# from dotenv import load_dotenv
-# from fastapi import FastAPI, HTTPException, status
-# from fastapi.responses import HTMLResponse
-# from fastapi.middleware.cors import CORSMiddleware
-# from pydantic import BaseModel
-
-# app = FastAPI(title="Modern SQA Demo App")
-
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=["*"],
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
-# # Load variables from .env file
-# load_dotenv()
-
-# MOCK_EMAIL = os.getenv("MOCK_EMAIL")
-# MOCK_PASSWORD = os.getenv("MOCK_PASSWORD")
-
-# app = FastAPI()
-
-# class LoginRequest(BaseModel):
-#     email: str
-#     password: str
-
-# # # Mock User Credentials
-# # VALID_EMAIL = "admin@qa.com"
-# # VALID_PASSWORD = "Pass123!"
-
-# @app.post("/api/login")
-# def login(data: LoginRequest):
-#     if data.email == VALID_EMAIL and data.password == VALID_PASSWORD:
-#         return {
-#             "status": "success",
-#             "message": "Authentication successful",
-#             "token": "qa-demo-auth-token-998877"
-#         }
-#     raise HTTPException(
-#         status_code=status.HTTP_401_UNAUTHORIZED,
-#         detail="Invalid email or password"
-#     )
-
 import os
+import uuid
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, status
 from fastapi.responses import HTMLResponse
@@ -76,7 +32,7 @@ def login(data: LoginRequest):
         return {
             "status": "success",
             "message": "Authentication successful",
-            "token": "qa-demo-auth-token-998877"
+            "token": f"bearer-{uuid.uuid4()}"  # Generates unique session token
         }
     
     raise HTTPException(

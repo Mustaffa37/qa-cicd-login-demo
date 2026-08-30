@@ -1,12 +1,19 @@
+import os
 import requests
+from dotenv import load_dotenv
 
-BASE_URL = "http://127.0.0.1:8000"
+# Load variables from .env file
+load_dotenv()
+
+BASE_URL = os.getenv("BASE_URL")
+USER_EMAIL = os.getenv("TEST_USER_EMAIL")
+USER_PASSWORD = os.getenv("TEST_USER_PASSWORD")
 
 def test_api_valid_login():
     """TC_API_01: Valid credentials return 200 OK and authentication token"""
     payload = {
-        "email": "admin@qa.com",
-        "password": "Pass123!"
+        "email": USER_EMAIL,
+        "password": USER_PASSWORD
     }
     response = requests.post(f"{BASE_URL}/api/login", json=payload)
     
@@ -19,7 +26,7 @@ def test_api_valid_login():
 def test_api_invalid_password():
     """TC_API_02: Incorrect password returns 401 Unauthorized"""
     payload = {
-        "email": "admin@qa.com",
+        "email": USER_EMAIL,
         "password": "WrongPassword!"
     }
     response = requests.post(f"{BASE_URL}/api/login", json=payload)

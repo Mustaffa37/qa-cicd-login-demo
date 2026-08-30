@@ -1,6 +1,11 @@
+.vscode
 venv/
 .env
 __pycache__/
 .pytest_cache/
 report.html
 *.log
+
+*.pyc
+test-results/
+playwright-report/
